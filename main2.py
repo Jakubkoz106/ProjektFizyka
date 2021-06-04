@@ -74,6 +74,7 @@ class Ball():
         self.space.add(body, shape)
         self.balls.append(shape)
 
+
     def refresh(self):
         self.screen.fill(pygame.Color("white"))
         self.space.debug_draw(self.draw_options)
