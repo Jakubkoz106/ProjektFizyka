@@ -61,7 +61,7 @@ class Particle:
     def v(self):
         return np.sqrt((self.v[0] * self.v[0]) + (self.v[1] * self.v[1]))
 
-    def overlaps(self, other):
+    def overlaps(self, other): #do sprawdzenia czy sie stymkaja
         """Does the circle of this Particle overlap that of other?"""
 
         return np.hypot(*(self.r - other.r)) < self.radius + other.radius
@@ -76,6 +76,7 @@ class Particle:
     def advance(self, dt):
         """Advance the Particle's position forward in time by dt."""
         print(self.v)
+        #print(np.sqrt((self.v[0] * self.v[0]) + (self.v[1] * self.v[1]))) predkosc juz jako wartosc
         self.r += self.v * dt
 
         # Make the Particles bounce off the walls
@@ -238,6 +239,6 @@ class Simulation:
 if __name__ == '__main__':
     nparticles = 20
     radii = np.random.random(nparticles) * 0.03 + 0.02
-    styles = {'edgecolor': 'C0', 'linewidth': 2, 'fill': 'b'}
-    sim = Simulation(nparticles, radii, styles)
+    styles = {'edgecolor': 'red', 'linewidth': 2, 'fill': 'red'}
+    sim = Simulation(nparticles, 0.5, styles)# radii, styles)
     sim.do_animation(save=False)
