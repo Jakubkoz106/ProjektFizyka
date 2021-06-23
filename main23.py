@@ -139,6 +139,7 @@ class Simulation:
                 x, y = rad + (1 - 2 * rad) * np.random.random(2)
                 # Choose a random velocity (within some reasonable range of
                 # values) for the Particle.
+                #vr = 0.1 * np.random.random() + 0.05
                 vr = 0.1 * np.random.random() + 0.05
                 vphi = 2 * np.pi * np.random.random()
                 vx, vy = vr * np.cos(vphi), vr * np.sin(vphi)
@@ -240,5 +241,5 @@ if __name__ == '__main__':
     nparticles = 20
     radii = np.random.random(nparticles) * 0.03 + 0.02
     styles = {'edgecolor': 'red', 'linewidth': 2, 'fill': 'red'}
-    sim = Simulation(nparticles, 0.5, styles)# radii, styles)
+    sim = Simulation(nparticles, 0.03, styles)# radii, styles)
     sim.do_animation(save=False)
