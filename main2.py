@@ -8,7 +8,7 @@ class Ball():
     def __init__(self,ile,czas,speed,promien):
         self.space = pymunk.Space()
         self.space.gravity = (0.0, 0.0)
-        self.space.add_collision_handler()
+        #self.space.add_collision_handler()
         self.licznik = 0
         self.ile = ile # mozna zmienic zeby uzytkownik podawal
         self.timeForNewBall = czas # podawane w frame per second czyli dla 120 to 2s mozna zmienic zeby uzytkownik podawal
@@ -54,9 +54,9 @@ class Ball():
 
     def newBall(self):
         self.timeForNewBallZmienny -= 1
-        self.Con
-        #for ball in self.balls:
-            #ball.body.velocity = ball.body.velocity[0]*abs(self.speed/ball.body.velocity[0]),ball.body.velocity[1]*abs(self.speed/ball.body.velocity[1])
+        #self.Con
+        for ball in self.balls:
+            ball.body.velocity = ball.body.velocity[0]*abs(self.speed/ball.body.velocity[0]),ball.body.velocity[1]*abs(self.speed/ball.body.velocity[1])
         if self.timeForNewBallZmienny <= 0 and self.licznik <self.ile:
             self.createBall()
             self.licznik+=1
@@ -71,6 +71,7 @@ class Ball():
         x = random.randint(20,580)
         body.position = x, random.randint(20,580)
         body.velocity = random.choice(lista)*self.speed,random.choice(lista)*self.speed
+
         shape = pymunk.Circle(body, radius, (0, 0))
         shape.elasticity = 1
         shape.friction = 1
