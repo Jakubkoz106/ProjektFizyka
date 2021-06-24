@@ -16,7 +16,7 @@ class Particle:
 
         self.styles = styles
         if not self.styles:
-            self.styles = {'edgecolor': 'b', 'fill': 'b'}
+            self.styles = {'edgecolor': 'red', 'fill': 'red'}
     @property
     def x(self):
         return self.r[0]
@@ -105,9 +105,11 @@ class Simulation:
 
                 #vr = 0.1 * np.random.random() + 0.05
                 lista = [-1, 1]
-                vr =0.3*random.choice(lista)  # 1 * np.random.random() + 0.05
-                vphi =np.pi * np.random.random()  # 2*random.choice(lista)
+                vr = 0.3 * random.choice(lista)  # 1 * np.random.random() + 0.05
+                vphi = np.pi * np.random.random()  # 2*random.choice(lista)
                 vx, vy = vr * np.cos(vphi), vr * np.sin(vphi)
+                vphi = np.pi * np.random.random()  # 2*random.choice(lista)
+                #vx, vy = vr * np.cos(np.pi*0.5), vr * np.sin(np.pi*0.5)
                 particle = Particle(x, y, vx, vy, rad, styles)
 
                 for p2 in self.particles:
@@ -152,10 +154,10 @@ class Simulation:
         #self.advance_animation(0.005)
         return self.circles
 
-    def do_animation(self, save=False):
+    def do_animation(self):
         fig, self.ax = plt.subplots()
         for s in ['top', 'bottom', 'left', 'right']:
-            self.ax.spines[s].set_linewidth(2)
+            self.ax.spines[s].set_linewidth(1)
         self.ax.set_aspect('equal', 'box')
         self.ax.set_xlim(0, 1)
         self.ax.set_ylim(0, 1)
@@ -163,6 +165,7 @@ class Simulation:
         self.ax.yaxis.set_ticks([])
         anim = animation.FuncAnimation(fig, self.animate, init_func=self.init,
                                        frames=4000, interval=2, blit=True)
+        plt.title("Symulacja zderzeń idealnie sprężystych niecentralnych i centralnych.")
 
         plt.show()
 
@@ -171,12 +174,18 @@ class Simulation:
             dane.append(np.sqrt((sth.v[0] * sth.v[0]) + (sth.v[1] * sth.v[1])))
         return dane
 if __name__ == '__main__':
-    nparticles = 40
+    nparticles = 20
     radii = np.random.random(nparticles) * 0.03 + 0.02
-    styles = {'edgecolor': 'red', 'linewidth': 2, 'fill': 'red'}
-    sim = Simulation(nparticles,radii, styles)#,0.03, styles
-    sim.do_animation(save=False)
+    radius = 0.03
+    styles = {'edgecolor': 'red', 'linewidth': 0.03, 'fill': 'red'}
+    sim = Simulation(nparticles, radius, styles)#,0.03, styles
+    sim.do_animation()
     dane = sim.histogram()
     plt.style.use('seaborn-white')
-    plt.hist(dane)
+    plt.title("Histogram rozkładu prędkości kulek po zderzeniach")
+    plt.xlabel('Prędkość')
+    plt.ylabel("Ilość kulek")
+    plt.grid(axis='y', alpha=0.75)
+    plt.hist(dane, bins=20, rwidth=0.9,
+                   color='#607c8e')
     plt.show()
