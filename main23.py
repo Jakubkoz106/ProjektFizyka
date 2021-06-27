@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 from matplotlib import animation
 from itertools import combinations
+from matplotlib.widgets import Slider, Button
 
 dane= []
 class Particle:
@@ -105,7 +106,7 @@ class Simulation:
 
                 #vr = 0.1 * np.random.random() + 0.05
                 lista = [-1, 1]
-                vr = 0.3 * random.choice(lista)  # 1 * np.random.random() + 0.05
+                vr = 0.03 * random.choice(lista)  # 1 * np.random.random() + 0.05
                 vphi = np.pi * np.random.random()  # 2*random.choice(lista)
                 vx, vy = vr * np.cos(vphi), vr * np.sin(vphi)
                 vphi = np.pi * np.random.random()  # 2*random.choice(lista)
@@ -156,6 +157,7 @@ class Simulation:
 
     def do_animation(self):
         fig, self.ax = plt.subplots()
+        plt.title("Symulacja zderzeń idealnie sprężystych \n dla " + str(self.n) + " kulek.")
         for s in ['top', 'bottom', 'left', 'right']:
             self.ax.spines[s].set_linewidth(1)
         self.ax.set_aspect('equal', 'box')
@@ -163,9 +165,9 @@ class Simulation:
         self.ax.set_ylim(0, 1)
         self.ax.xaxis.set_ticks([])
         self.ax.yaxis.set_ticks([])
+
         anim = animation.FuncAnimation(fig, self.animate, init_func=self.init,
-                                       frames=4000, interval=2, blit=True)
-        plt.title("Symulacja zderzeń idealnie sprężystych niecentralnych i centralnych.")
+                                           frames=4000, interval=2, blit=True)
 
         plt.show()
 
@@ -175,7 +177,7 @@ class Simulation:
         return dane
 if __name__ == '__main__':
     nparticles = 20
-    radii = np.random.random(nparticles) * 0.03 + 0.02
+    #radii = np.random.random(nparticles) * 0.03 + 0.02
     radius = 0.03
     styles = {'edgecolor': 'red', 'linewidth': 0.03, 'fill': 'red'}
     sim = Simulation(nparticles, radius, styles)#,0.03, styles
@@ -186,6 +188,5 @@ if __name__ == '__main__':
     plt.xlabel('Prędkość')
     plt.ylabel("Ilość kulek")
     plt.grid(axis='y', alpha=0.75)
-    plt.hist(dane, bins=20, rwidth=0.9,
-                   color='#607c8e')
+    plt.hist(dane, bins=20, rwidth=0.9, color='#607c8e')
     plt.show()
