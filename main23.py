@@ -120,7 +120,7 @@ class Simulation:
                     break
 
     def handle_collisions(self):
-        n=0
+
         def change_velocities(p1, p2):
             m1, m2 = p1.radius ** 2, p2.radius ** 2
             M = m1 + m2
