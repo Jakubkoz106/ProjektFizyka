@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 from matplotlib import animation
 from itertools import combinations
-from matplotlib.widgets import Slider, Button
 
 dane= []
 class Particle:
@@ -106,7 +105,7 @@ class Simulation:
 
                 #vr = 0.1 * np.random.random() + 0.05
                 lista = [-1, 1]
-                vr = 0.03 * random.choice(lista)  # 1 * np.random.random() + 0.05
+                vr = 0.34 * random.choice(lista)  # 1 * np.random.random() + 0.05
                 vphi = np.pi * np.random.random()  # 2*random.choice(lista)
                 vx, vy = vr * np.cos(vphi), vr * np.sin(vphi)
                 vphi = np.pi * np.random.random()  # 2*random.choice(lista)
@@ -121,6 +120,7 @@ class Simulation:
                     break
 
     def handle_collisions(self):
+        n=0
         def change_velocities(p1, p2):
             m1, m2 = p1.radius ** 2, p2.radius ** 2
             M = m1 + m2
@@ -135,6 +135,7 @@ class Simulation:
         for i, j in pairs:
             if self.particles[i].overlaps(self.particles[j]):
                 change_velocities(self.particles[i], self.particles[j])
+
 
     def advance_animation(self, dt):
         for i, p in enumerate(self.particles):
