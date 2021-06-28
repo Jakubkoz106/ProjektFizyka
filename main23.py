@@ -7,6 +7,7 @@ from matplotlib import animation
 from itertools import combinations
 
 dane= []
+global vr
 class Particle:
     def __init__(self, x, y, vx, vy, radius=0.01, styles=None):
 
@@ -16,7 +17,7 @@ class Particle:
 
         self.styles = styles
         if not self.styles:
-            self.styles = {'edgecolor': 'red', 'fill': 'red'}
+            self.styles = {'edgecolor': 'red', 'fill': 'blue'}
     @property
     def x(self):
         return self.r[0]
@@ -82,6 +83,7 @@ class Particle:
 class Simulation:
 
     def __init__(self, n, radius=0.01, styles=None):
+        self.speed = 0.4
         self.init_particles(n, radius, styles)
 
     def init_particles(self, n, radius, styles=None):
@@ -105,7 +107,8 @@ class Simulation:
 
                 #vr = 0.1 * np.random.random() + 0.05
                 lista = [-1, 1]
-                vr = 0.34 * random.choice(lista)  # 1 * np.random.random() + 0.05
+                vr = self.speed * random.choice(lista)  # 1 * np.random.random() + 0.05
+
                 vphi = np.pi * np.random.random()  # 2*random.choice(lista)
                 vx, vy = vr * np.cos(vphi), vr * np.sin(vphi)
                 vphi = np.pi * np.random.random()  # 2*random.choice(lista)
@@ -178,14 +181,14 @@ class Simulation:
         return dane
 if __name__ == '__main__':
     nparticles = 20
-    #radii = np.random.random(nparticles) * 0.03 + 0.02
+    radii = np.random.random(nparticles) * 0.03 + 0.02
     radius = 0.03
-    styles = {'edgecolor': 'red', 'linewidth': 0.03, 'fill': 'red'}
+    styles = {'edgecolor': 'red', 'linewidth': 0.03, 'fill': 'blue'}
     sim = Simulation(nparticles, radius, styles)#,0.03, styles
     sim.do_animation()
     dane = sim.histogram()
     plt.style.use('seaborn-white')
-    plt.title("Histogram rozkładu prędkości kulek po zderzeniach")
+    plt.title("Histogram rozkładu prędkości kulek po zderzeniach \n Prędkość początkowa kulek "+str(sim.speed))
     plt.xlabel('Prędkość')
     plt.ylabel("Ilość kulek")
     plt.grid(axis='y', alpha=0.75)
