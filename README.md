@@ -1,2 +1,2 @@
 # fiza
-Giga gorący projekt fiza w twojej okolicy (20km) 100%free no-scam
+Zderzenia idealnie sprezystych kulek w "pojemniku" + histogram rozkladu predkosci w momencie wylaczenia
